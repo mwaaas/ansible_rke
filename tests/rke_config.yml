@@ -1,0 +1,138 @@
+addon_job_timeout: 0
+addons: ''
+addons_include: []
+authentication:
+    sans: []
+    strategy: x509
+    webhook: null
+authorization:
+    mode: rbac
+    options: {}
+bastion_host:
+    address: ''
+    port: ''
+    ssh_cert: ''
+    ssh_cert_path: ''
+    ssh_key: ''
+    ssh_key_path: ''
+    user: ''
+cloud_provider:
+    name: ''
+cluster_name: ''
+dns: null
+ignore_docker_version: false
+ingress:
+    dns_policy: ''
+    extra_args: {}
+    extra_envs: []
+    extra_volume_mounts: []
+    extra_volumes: []
+    node_selector: {}
+    options: {}
+    provider: ''
+kubernetes_version: ''
+monitoring:
+    node_selector: {}
+    options: {}
+    provider: ''
+network:
+    mtu: 0
+    node_selector: {}
+    options: {}
+    plugin: canal
+prefix_path: ''
+private_registries: []
+restore:
+    restore: false
+    snapshot_name: ''
+services:
+    etcd:
+        backup_config: null
+        ca_cert: ''
+        cert: ''
+        creation: ''
+        external_urls: []
+        extra_args: {}
+        extra_binds: []
+        extra_env: []
+        gid: 0
+        image: ''
+        key: ''
+        path: ''
+        retention: ''
+        snapshot: null
+        uid: 0
+    kube-api:
+        admission_configuration: null
+        always_pull_images: false
+        audit_log: null
+        event_rate_limit: null
+        extra_args: {}
+        extra_binds: []
+        extra_env: []
+        image: ''
+        pod_security_policy: true
+        secrets_encryption_config: null
+        service_cluster_ip_range: 10.43.0.0/16
+        service_node_port_range: ''
+    kube-controller:
+        cluster_cidr: 10.42.0.0/16
+        extra_args: {}
+        extra_binds: []
+        extra_env: []
+        image: ''
+        service_cluster_ip_range: 10.43.0.0/16
+    kubelet:
+        cluster_dns_server: 10.43.0.10
+        cluster_domain: cluster.local
+        extra_args: {}
+        extra_binds: []
+        extra_env: []
+        fail_swap_on: false
+        generate_serving_certificate: false
+        image: ''
+        infra_container_image: ''
+    kubeproxy:
+        extra_args: {}
+        extra_binds: []
+        extra_env: []
+        image: ''
+    scheduler:
+        extra_args: {}
+        extra_binds: []
+        extra_env: []
+        image: ''
+ssh_agent_auth: false
+ssh_cert_path: ''
+ssh_key_path: ~/.ssh/id_rsa
+system_images:
+    alpine: rancher/rke-tools:v0.1.52
+    calico_cni: rancher/calico-cni:v3.10.2
+    calico_controllers: rancher/calico-kube-controllers:v3.10.2
+    calico_ctl: rancher/calico-ctl:v2.0.0
+    calico_flexvol: rancher/calico-pod2daemon-flexvol:v3.10.2
+    calico_node: rancher/calico-node:v3.10.2
+    canal_cni: rancher/calico-cni:v3.10.2
+    canal_flannel: rancher/coreos-flannel:v0.11.0
+    canal_flexvol: rancher/calico-pod2daemon-flexvol:v3.10.2
+    canal_node: rancher/calico-node:v3.10.2
+    cert_downloader: rancher/rke-tools:v0.1.52
+    coredns: rancher/coredns-coredns:1.6.5
+    coredns_autoscaler: rancher/cluster-proportional-autoscaler:1.7.1
+    dnsmasq: rancher/k8s-dns-dnsmasq-nanny:1.15.0
+    etcd: rancher/coreos-etcd:v3.4.3-rancher1
+    flannel: rancher/coreos-flannel:v0.11.0-rancher1
+    flannel_cni: rancher/flannel-cni:v0.3.0-rancher5
+    ingress: rancher/nginx-ingress-controller:nginx-0.25.1-rancher1
+    ingress_backend: rancher/nginx-ingress-controller-defaultbackend:1.5-rancher1
+    kubedns: rancher/k8s-dns-kube-dns:1.15.0
+    kubedns_autoscaler: rancher/cluster-proportional-autoscaler:1.7.1
+    kubedns_sidecar: rancher/k8s-dns-sidecar:1.15.0
+    kubernetes: rancher/hyperkube:v1.17.2-rancher1
+    kubernetes_services_sidecar: rancher/rke-tools:v0.1.52
+    metrics_server: rancher/metrics-server:v0.3.6
+    nginx_proxy: rancher/rke-tools:v0.1.52
+    pod_infra_container: rancher/pause:3.1
+    weave_cni: weaveworks/weave-npc:2.5.2
+    weave_node: weaveworks/weave-kube:2.5.2
+    windows_pod_infra_container: rancher/kubelet-pause:v0.1.3

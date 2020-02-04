@@ -1,0 +1,58 @@
+---
+# tasks file for rke
+
+- name: default rke configuration
+  include_vars:
+    file: templates/cluster.yml
+    name: rke_config
+
+- name: add user configuration
+  set_fact:
+      rke_config: "{{ rke_config | combine({item: lookup('vars', item)}, recursive=True)}}"
+  when: lookup('vars', item, default='rke_not_found') != 'rke_not_found'
+  with_items: "{{rke_config}}"
+
+- name: node configuration
+  with_items: "{{groups['all']}}"
+  set_fact:
+    nodes: |
+      {{ nodes | default([]) }}  + [
+      {
+          'address': "{{item}}",
+          'port': "22",
+          'role':
+            {% set role = [] %}
+            {% for group in groups %}
+              {% if group in ('role_controlplane', 'role_worker', 'role_etcd') %}
+                {% if item in groups[group] %}
+                  {% if role.append(group| replace("role_","")) %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{role}},
+          'internal_address': "",
+          'hostname_override': "",
+          'docker_socket': '/var/run/docker.sock',
+          'ssh_key': "",
+          'ssh_key_path': '~/.ssh/id_rsa',
+          'ssh_cert': "",
+          'ssh_cert_path': "",
+          'user': 'root',
+          'labels': {},
+          'taints': []
+      }
+       ]
+
+- name: add node configuration to rke configuration
+  set_fact:
+    rke_config: "{{ rke_config | combine({'nodes': nodes}) }}"
+
+- name: rke config
+  template:
+    src: templates/rke_config_template.yml
+    dest: cluster.yml
+
+
+- name: setup cluster
+  shell: rke up --ssh-agent-auth

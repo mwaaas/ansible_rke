@@ -56,3 +56,6 @@
 
 - name: setup cluster
   shell: rke up --ssh-agent-auth
+  register: rke_results
+
+- debug: var=rke_results.stdout_lines
